@@ -1,7 +1,7 @@
 # Gestión de Contactos (Java Swing)
 
 ## Descripción
-Este proyecto corresponde a la mejora de una aplicación base proporcionada por el docente. La aplicación está desarrollada en Java utilizando la librería Swing y permite gestionar una lista de contactos mediante operaciones CRUD (Crear, Leer, Actualizar y Eliminar). Sobre la versión original se implementaron mejoras solicitadas, incluyendo nuevas funcionalidades, manejo de eventos y optimización de la interfaz.
+Este proyecto corresponde a la mejora de una aplicación base proporcionada por el docente. La aplicación está desarrollada en Java utilizando la librería Swing y permite gestionar una lista de contactos mediante operaciones básicas de gestion de contactos (agregar, visualizar, modificar y eliminar). Sobre la versión original se implementaron mejoras solicitadas, incluyendo nuevas funcionalidades, manejo de eventos y optimización de la interfaz.
 
 ## Mejoras implementadas
 
@@ -36,7 +36,7 @@ Permite:
 - Ingresar datos (nombre, teléfono, email, categoría)
 - Visualizar contactos en una tabla
 - Buscar contactos en tiempo real
-- Realizar operaciones CRUD
+- Realizar operaciones básicas de gestión de contactos
 
 ### Estadísticas
 Muestra información en tiempo real sobre:
