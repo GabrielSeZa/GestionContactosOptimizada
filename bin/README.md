@@ -90,4 +90,4 @@ El proyecto parte de una base proporcionada por el docente. Las modificaciones r
 
 ## Autor
 
-Desarrollo basado en código base del docente, con mejoras implementadas por el estudiante.
+Desarrollo basado en código base del docente, con mejoras implementadas por mi persona el estudiante Gabriel Alberto Serrano Zaldúa
