@@ -163,6 +163,12 @@ public class logica_ventana implements ActionListener, ItemListener {
 	    delegado.tablaContactos.getColumnModel().getColumn(3).setHeaderValue(mensajes.getString("categoria"));
 	    delegado.tablaContactos.getTableHeader().repaint();
 	    
+	    delegado.cmb_categoria.removeAllItems();
+	    delegado.cmb_categoria.addItem(mensajes.getString("categoria_default"));
+	    delegado.cmb_categoria.addItem(mensajes.getString("familia"));
+	    delegado.cmb_categoria.addItem(mensajes.getString("amigos"));
+	    delegado.cmb_categoria.addItem(mensajes.getString("trabajo"));
+	    
 	    actualizarEstadisticas();
 	}
 	
@@ -349,9 +355,11 @@ public class logica_ventana implements ActionListener, ItemListener {
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		// Verifica si el evento proviene del JComboBox de categoría.
-	    if (e.getSource() == delegado.cmb_categoria) {
-	        // Obtiene el elemento seleccionado en el JComboBox y lo convierte en una cadena.
-	        categoria = delegado.cmb_categoria.getSelectedItem().toString();
+		if (e.getSource() == delegado.cmb_categoria) {
+		    if (delegado.cmb_categoria.getSelectedItem() != null) {
+		        categoria = delegado.cmb_categoria.getSelectedItem().toString();
+		    }
+		
 	        // Actualiza la categoría seleccionada en la variable "categoria".
 	    } else if (e.getSource() == delegado.chb_favorito) {
 	        // Verifica si el evento proviene del JCheckBox de favorito.
