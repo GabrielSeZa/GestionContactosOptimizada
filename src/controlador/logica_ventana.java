@@ -157,6 +157,13 @@ public class logica_ventana implements ActionListener, ItemListener {
 
 	    // Estadísticas título
 	    delegado.lblTituloEst.setText(mensajes.getString("estadisticas"));
+	    delegado.tablaContactos.getColumnModel().getColumn(0).setHeaderValue(mensajes.getString("nombre"));
+	    delegado.tablaContactos.getColumnModel().getColumn(1).setHeaderValue(mensajes.getString("telefono"));
+	    delegado.tablaContactos.getColumnModel().getColumn(2).setHeaderValue(mensajes.getString("email"));
+	    delegado.tablaContactos.getColumnModel().getColumn(3).setHeaderValue(mensajes.getString("categoria"));
+	    delegado.tablaContactos.getTableHeader().repaint();
+	    
+	    actualizarEstadisticas();
 	}
 	
 	private void filtrarTabla() {
@@ -252,10 +259,10 @@ public class logica_ventana implements ActionListener, ItemListener {
 	    }
 
 	    delegado.txt_estadisticas.setText(
-	        "Total de contactos: " + total + "\n" +
-	        "Contactos favoritos: " + favoritosCount + "\n" +
-	        "Categorías registradas: " + categorias.size()
-	    );
+	    	    mensajes.getString("total_contactos") + ": " + total + "\n" +
+	    	    mensajes.getString("contactos_favoritos") + ": " + favoritosCount + "\n" +
+	    	    mensajes.getString("categorias_registradas") + ": " + categorias.size()
+	    	);
 	}
 
 	@Override
