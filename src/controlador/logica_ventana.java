@@ -18,6 +18,11 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableRowSorter;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import java.awt.event.ItemEvent;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -35,11 +40,16 @@ public class logica_ventana implements ActionListener, ItemListener {
 	private List<persona> contactos; // Lista de objetos persona que representa todos los contactos.
 	private boolean favorito = false; // Booleano que indica si un contacto es favorito.
 	private TableRowSorter<javax.swing.table.DefaultTableModel> sorter;
+	private ResourceBundle mensajes;
 
 	// Constructor que inicializa la clase y configura los escuchadores de eventos para los componentes de la GUI.
 	public logica_ventana(ventana delegado) {
 		  // Asigna la ventana recibida como parámetro a la variable de instancia delegado.
 	    this.delegado = delegado;
+	    
+	    Locale locale = new Locale("es"); // idioma inicial
+	    mensajes = ResourceBundle.getBundle("mensajes", locale);
+	    
 	    sorter = new TableRowSorter<>(this.delegado.modeloTabla);
 	    this.delegado.tablaContactos.setRowSorter(sorter);
 	    // Carga los contactos almacenados al inicializar.
@@ -49,8 +59,19 @@ public class logica_ventana implements ActionListener, ItemListener {
 	    this.delegado.btn_eliminar.addActionListener(this);
 	    this.delegado.btn_modificar.addActionListener(this);
 	    this.delegado.itemEliminar.addActionListener(this);
+	    
+	    this.delegado.cmb_idioma.addItemListener(e -> {
+	        if (e.getStateChange() == ItemEvent.SELECTED) {
+	            cambiarIdioma();
+	        }
+	    });
+	    
+	    actualizarTextos();
+	    
 	    this.delegado.txt_buscar.getDocument().addDocumentListener(new DocumentListener() {
-	    	
+
+
+	    
 	        @Override
 	        public void insertUpdate(DocumentEvent e) {
 	            filtrarTabla();
@@ -95,6 +116,47 @@ public class logica_ventana implements ActionListener, ItemListener {
 	    // Registra los ItemListener para el JComboBox de categoría y el JCheckBox de favoritos.
 	    this.delegado.cmb_categoria.addItemListener(this);
 	    this.delegado.chb_favorito.addItemListener(this);
+	}
+	
+	private void cambiarIdioma() {
+	    int opcion = delegado.cmb_idioma.getSelectedIndex();
+
+	    if (opcion == 0) {
+	        mensajes = ResourceBundle.getBundle("mensajes", new Locale("es"));
+	    } else if (opcion == 1) {
+	        mensajes = ResourceBundle.getBundle("mensajes", new Locale("en"));
+	    } else if (opcion == 2) {
+	        mensajes = ResourceBundle.getBundle("mensajes", new Locale("fr"));
+	    }
+
+	    actualizarTextos();
+	
+	}
+
+	private void actualizarTextos() {
+	    // Botones
+	    delegado.btn_add.setText(mensajes.getString("agregar"));
+	    delegado.btn_modificar.setText(mensajes.getString("modificar"));
+	    delegado.btn_eliminar.setText(mensajes.getString("eliminar"));
+
+	    // Labels
+	    delegado.lbl_nombre.setText(mensajes.getString("nombre"));
+	    delegado.lbl_telefono.setText(mensajes.getString("telefono"));
+	    delegado.lbl_email.setText(mensajes.getString("email"));
+	    delegado.lbl_buscar.setText(mensajes.getString("buscar"));
+
+	    // Checkbox
+	    delegado.chb_favorito.setText(mensajes.getString("favorito"));
+
+	    // Título ventana
+	    delegado.setTitle(mensajes.getString("titulo"));
+
+	    // Tabs
+	    delegado.tabbedPane.setTitleAt(0, mensajes.getString("contactos"));
+	    delegado.tabbedPane.setTitleAt(1, mensajes.getString("estadisticas"));
+
+	    // Estadísticas título
+	    delegado.lblTituloEst.setText(mensajes.getString("estadisticas"));
 	}
 	
 	private void filtrarTabla() {
@@ -221,8 +283,7 @@ public class logica_ventana implements ActionListener, ItemListener {
 	                
 	                actualizarEstadisticas();
 	                
-	                JOptionPane.showMessageDialog(delegado, "Contacto Registrado!!!");
-
+	                JOptionPane.showMessageDialog(delegado, mensajes.getString("msg_registrado"));
 	            } else {
 	                JOptionPane.showMessageDialog(delegado, "Elija una Categoria!!!");
 	            }
