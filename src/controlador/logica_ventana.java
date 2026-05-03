@@ -240,6 +240,21 @@ public class logica_ventana implements ActionListener, ItemListener {
 	        int filaModelo = delegado.tablaContactos.convertRowIndexToModel(filaSeleccionada);
 	        delegado.modeloTabla.removeRow(filaModelo);
 	        contactos.remove(filaModelo);
+	        try {
+	            new personaDAO(new persona()).actualizarContactos(contactos);
+	        } catch (IOException e) {
+	            JOptionPane.showMessageDialog(delegado, "Error al actualizar el archivo");
+	        }
+	        
+	        delegado.txt_nombres.setText("");
+	        delegado.txt_telefono.setText("");
+	        delegado.txt_email.setText("");
+	        delegado.cmb_categoria.setSelectedIndex(0);
+	        delegado.chb_favorito.setSelected(false);
+	        
+	        sorter.setRowFilter(null);
+	        
+	        
 	        actualizarEstadisticas();
 
 	        JOptionPane.showMessageDialog(delegado, "Contacto eliminado correctamente");
