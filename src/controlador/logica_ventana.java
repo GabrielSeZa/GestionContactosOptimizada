@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -315,32 +316,31 @@ public class logica_ventana implements ActionListener, ItemListener {
 
 	private void exportarContactosSegundoPlano() {
 
-	    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+	    SwingWorker<File, Void> worker = new SwingWorker<File, Void>() {
 
 	        @Override
-	        protected Void doInBackground() throws Exception {
-
+	        protected File doInBackground() throws Exception {
 	            personaDAO dao = new personaDAO(new persona());
-
-	            dao.exportarContactos(contactos);
-
-	            return null;
+	            return dao.exportarContactos(contactos);
 	        }
 
 	        @Override
 	        protected void done() {
-
-	            SwingUtilities.invokeLater(() -> {
+	            try {
+	                File archivo = get();
 
 	                JOptionPane.showMessageDialog(
 	                        delegado,
-	                        "Exportación completada correctamente"
+	                        "Exportación completada correctamente en:\n" + archivo.getAbsolutePath()
 	                );
 
-	            });
-
+	            } catch (Exception e) {
+	                JOptionPane.showMessageDialog(
+	                        delegado,
+	                        "Error al exportar:\n" + e.getMessage()
+	                );
+	            }
 	        }
-
 	    };
 
 	    worker.execute();

@@ -132,9 +132,8 @@ public class personaDAO {
 	    }
 	}
 	
-	public synchronized void exportarContactos(List<persona> personas) throws IOException {
-	    File archivoExportado = new File("./gestionContactos/contactos_exportados.csv");
-
+	public synchronized File exportarContactos(List<persona> personas) throws IOException {
+		File archivoExportado = new File(System.getProperty("user.home") + "\\OneDrive\\Escritorio\\contactos_exportados.csv");		
 	    FileWriter escribir = new FileWriter(archivoExportado, false);
 
 	    escribir.write("NOMBRE;TELEFONO;EMAIL;CATEGORIA;FAVORITO\n");
@@ -144,5 +143,9 @@ public class personaDAO {
 	    }
 
 	    escribir.close();
+	    
+	    return archivoExportado;
 	}
+	
+	
 }
