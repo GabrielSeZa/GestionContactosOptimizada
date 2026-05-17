@@ -47,6 +47,7 @@ public class ventana extends JFrame {
 	public JButton btn_add; // Botón para agregar un nuevo contacto.
 	public JButton btn_modificar; // Botón para modificar un contacto existente.
 	public JButton btn_eliminar; // Botón para eliminar un contacto.
+	public JButton btn_exportar;
 	public JComboBox cmb_idioma;
 	public JList lst_contactos; // Lista para mostrar los contactos.
 	public JScrollPane scrLista; // Panel de desplazamiento para la lista de contactos.
@@ -240,6 +241,26 @@ public class ventana extends JFrame {
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
 		        btn_eliminar.setBackground(new Color(220, 20, 60));
 		    }
+		});
+		
+		btn_exportar = new JButton("EXPORTAR CSV");
+		btn_exportar.setBackground(new Color(80, 100, 180));
+		btn_exportar.setForeground(Color.WHITE);
+		btn_exportar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_exportar.setBounds(601, 145, 395, 40);
+		panelContactos.add(btn_exportar);
+		btn_exportar.setFocusPainted(false);
+
+		btn_exportar.addMouseListener(new java.awt.event.MouseAdapter() {
+
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		        btn_exportar.setBackground(new Color(60, 80, 160));
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        btn_exportar.setBackground(new Color(80, 100, 180));
+		    }
+
 		});
 		
 		cmb_idioma = new JComboBox();

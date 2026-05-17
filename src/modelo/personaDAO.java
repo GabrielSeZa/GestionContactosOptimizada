@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+
 //Definición de la clase pública "personaDAO"
 public class personaDAO {
 	
@@ -62,19 +67,15 @@ public class personaDAO {
 	}
 
 	// Método público para escribir en el archivo
-	public boolean escribirArchivo() {
-//		// Prepara el archivo para escribir en la última línea
-//		FileWriter escribir = new FileWriter(archivo.getAbsolutePath(), true);
-//		escribir.write(persona.datosContacto() + "\n"); // Escribe los datos del contacto en el archivo
-//		// Cierra el archivo
-//		escribir.close();
-		escribir(persona.datosContacto());
-		return true; // Retorna true si la escritura fue exitosa
+	public synchronized boolean escribirArchivo() {
+
+	    escribir(persona.datosContacto());
+	    return true;
+
 	}
 	
 	// Método público para leer los datos del archivo
-	public List<persona> leerArchivo() throws IOException {
-		// Cadena que contendrá toda la data del archivo
+    public synchronized List<persona> leerArchivo() throws IOException {
 		String contactos = "";
 		// Abre el archivo para leer
 		FileReader leer = new FileReader(archivo.getAbsolutePath());
@@ -121,15 +122,27 @@ public class personaDAO {
 	}
 	
 	// Método público para guardar los contactos modificados o eliminados
-	public void actualizarContactos(List<persona> personas) throws IOException {
-		// Borra los datos del archivo
-		archivo.delete();
-		// Recorre los elementos de la lista
-		for (persona p : personas) {
-			// Instancia el DAO
-			new personaDAO(p);
-			// Escribe en el archivo
-			escribirArchivo();
-		}
+	public synchronized void actualizarContactos(List<persona> personas) throws IOException {
+
+	    archivo.delete();
+
+	    for (persona p : personas) {
+	        new personaDAO(p);
+	        escribirArchivo();
+	    }
+	}
+	
+	public synchronized void exportarContactos(List<persona> personas) throws IOException {
+	    File archivoExportado = new File("./gestionContactos/contactos_exportados.csv");
+
+	    FileWriter escribir = new FileWriter(archivoExportado, false);
+
+	    escribir.write("NOMBRE;TELEFONO;EMAIL;CATEGORIA;FAVORITO\n");
+
+	    for (persona p : personas) {
+	        escribir.write(p.datosContacto() + "\n");
+	    }
+
+	    escribir.close();
 	}
 }
