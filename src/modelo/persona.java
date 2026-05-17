@@ -85,7 +85,8 @@ public class persona {
 		
 		// Estructurar el siguiente formato: nombre;telefono;email;categoria;favorito
 		// Por ejemplo: Daniela Poma;097145478;dpoma2024@gmail.com;amigo;true
-		String contacto = String.format("%s;%s;%s;%s;%s", nombre, telefono, email, categoria, favorito); // Crea una cadena formateada con los valores de las variables
+		String contacto = String.format("%s;%s;%s;%s;%s",
+				nombre, telefono, email, categoria, favorito);; // Crea una cadena formateada con los valores de las variables
 		return contacto; // Retorna la cadena formateada
 	}
 	//Método para proveer el formato de los campos que se van a imprimir en la lista

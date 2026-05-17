@@ -97,7 +97,7 @@ public class personaDAO {
 		    }
 
 		    String[] partes = contacto.split(";");
-
+		    
 		    if (partes.length < 4) {
 		        continue;
 		    }
@@ -137,7 +137,7 @@ public class personaDAO {
 	    FileWriter escribir = new FileWriter(archivoExportado, false);
 
 	    escribir.write("NOMBRE;TELEFONO;EMAIL;CATEGORIA;FAVORITO\n");
-
+	    
 	    for (persona p : personas) {
 	        escribir.write(p.datosContacto() + "\n");
 	    }
